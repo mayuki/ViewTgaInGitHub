@@ -14,19 +14,41 @@ var ViewTgaInGitHub = (function () {
         ViewTgaInGitHub.injectImages();
     };
     ViewTgaInGitHub.injectImages = function () {
-        if (!window.location.pathname.endsWith('.tga'))
+        var isCommitChangeSetPage = window.location.href.match(/\/commit\//) != null;
+        if (!window.location.pathname.endsWith('.tga') && !isCommitChangeSetPage)
             return;
+        if (isCommitChangeSetPage) {
+            var fileHeaders = document.querySelectorAll('.file-header[data-path$=".tga"]');
+            for (var i = 0; i < fileHeaders.length; i++) {
+                var fileHeader = (fileHeaders[i]);
+                var path = fileHeader.querySelector('a').href;
+                // create path to raw image
+                path = path.replace(/\/blob\//, '/raw/') + '?raw=true';
+                // create dummy "View Raw" link
+                var viewRawLinkE = document.createElement('a');
+                viewRawLinkE.href = path;
+                viewRawLinkE.textContent = 'View Raw';
+                var dataContainer = fileHeader.nextElementSibling;
+                dataContainer.textContent = '';
+                dataContainer.appendChild(viewRawLinkE);
+                dataContainer.classList.remove('empty');
+                dataContainer.classList.add('image');
+            }
+            console.log(fileHeaders);
+        }
         var tgaLinks = document.querySelectorAll('.image a[href*=".tga"]');
         for (var i = 0; i < tgaLinks.length; i++) {
             var aElement = tgaLinks[i];
             var url = aElement.href;
             aElement.textContent = 'Loading...';
-            var tga = new TGA();
-            tga.open(url, function (data) {
-                aElement.textContent = '';
-                var canvas = tga.getCanvas();
-                aElement.appendChild(canvas);
-            });
+            (function (aElement) {
+                var tga = new TGA();
+                tga.open(url, function () {
+                    aElement.textContent = '';
+                    var canvas = tga.getCanvas();
+                    aElement.appendChild(canvas);
+                });
+            })(aElement);
         }
     };
     return ViewTgaInGitHub;
