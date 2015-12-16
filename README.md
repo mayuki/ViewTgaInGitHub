@@ -1,6 +1,9 @@
 # View TGA in GitHub (Chrome Extension)
 Chrome Extension to enable viewing for TARGA format in GitHub.
 
+## Install
+https://chrome.google.com/webstore/detail/dcbncohkgmmighckpkegknbnjefbjmnl
+
 ## Copyrights
 
 The MIT License (MIT)
