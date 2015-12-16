@@ -1,7 +1,7 @@
 ﻿{
     "manifest_version": 2,
     "name": "View TGA in GitHub",
-    "version": "0.1",
+    "version": "0.2",
     "description": "Enable viewing for TARGA format in GitHub",
     "homepage_url": "https://github.com/mayuki/ViewTgaInGitHub",
     "author": "Mayuki Sawatari",
