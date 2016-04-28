@@ -6,7 +6,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         const url = request.url;
 
         const xhr = new XMLHttpRequest();
-        console.log(url);
         xhr.open('GET', url);
         xhr.responseType = 'blob';
         xhr.onload = () => {
