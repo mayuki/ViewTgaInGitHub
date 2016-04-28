@@ -1,3 +1,5 @@
+"use strict";
+
 class ViewTgaInGitHubBridge {
     static main() {
         document.addEventListener('pjax:complete', (details) => {
